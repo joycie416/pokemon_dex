@@ -1,4 +1,4 @@
-const MOCK_DATA = [
+let MOCK_DATA = [
   {
     img_url:
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
@@ -1230,5 +1230,9 @@ const MOCK_DATA = [
       "에스퍼 타입의 전설의 포켓몬으로, 희귀하고 신비로운 능력을 가집니다.",
   },
 ];
+
+MOCK_DATA = MOCK_DATA.map((card) => {
+  return { ...card, isSelected: false };
+});
 
 export default MOCK_DATA;

@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { MockContext } from '../context/MockContext'
 
 const Card = styled.div`
   background-color: white;
@@ -20,6 +21,19 @@ const Card = styled.div`
 
   position: static;
   z-index: 1;
+
+  
+
+  ${props =>
+    !props.$empty &&
+    css`
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 10px gray;
+      }
+    `}
 `
 
 const Button = styled.button`
@@ -53,72 +67,50 @@ const EmptySlot = styled.p`
 
 
 
-const PokemonCard = ({ card, selected, setSelected, mock, setMock }) => {
+const PokemonCard = ({ card }) => {
   let { img_url, korean_name, id, isSelected } = card;
+  const { handleSelected } = useContext(MockContext);
 
   const navigate = useNavigate();
 
-  const handleSelect = () => {
 
-    console.log(korean_name);
-    if (isSelected) {
-      setSelected(prev => prev.filter(ele => ele.id !== id));
-      const newCard = { ...card };
-      newCard.isSelected = false;
-
-      const newMock = [...mock];
-      newMock[id - 1] = newCard;
-      setMock(newMock);
-      return;
-    } else {
-      if (selected.length === 6) {
-        alert('최대 6장까지 선택할 수 있습니다.');
-        return;
-      }
-
-      if (selected.filter(ele => ele.id === id).length > 0) {
-        alert('이미 선택된 포켓몬입니다.');
-        return;
-      } else {
-        console.log('new selection')
-        const newSelected = [...selected];
-        const newCard = { ...card };
-        newCard.isSelected = true;
-        newSelected.push(newCard);
-        setSelected(newSelected)
-
-        const newMock = [...mock];
-        newMock[id - 1] = newCard;
-        setMock(newMock);
-        return;
-      }
-    }
-  }
 
   const onClick = () => {
     const result = confirm('페이지를 벗어나면 선택한 카드 정보를 모두 잃습니다.\n페이지를 벗어나시겠습니까?');
     if (result) {
       navigate(`/detail/${id}`);
-      return
+      return;
     } else {
       return;
     }
-    
+
   }
 
 
   if (!id) {
-    return <Card><EmptySlot>Empty<br/>Slot</EmptySlot></Card>
+    return <Card $empty={true}><EmptySlot>Empty<br />Slot</EmptySlot></Card>
   } else {
     return (
-      <Card onClick={onClick}>
+      <Card onClick={onClick} $empty={false}>
         <img src={img_url} style={{
           height: "130px",
           objectFit: 'contain',
         }} />
         <p>{korean_name}</p>
-        <p style={{fontSize:'12px'}}>No. {`00${id}`.slice(-3)}</p>
-        {!isSelected ? (<Button onClick={(e) => {e.stopPropagation(); handleSelect() }} $isselected={isSelected}>선택</Button>) : (<Button onClick={(e) => {e.stopPropagation(); handleSelect() }} $isselected={isSelected}>해제</Button>)}
+        <p style={{ fontSize: '12px' }}>No. {`00${id}`.slice(-3)}</p>
+        {!isSelected ?
+          (<Button
+            onClick={(e) => {
+              e.stopPropagation();
+              //  console.log('card tobe selected', card)
+              handleSelected(card)
+            }} $isselected={isSelected}>선택</Button>)
+          : (<Button
+            onClick={(e) => {
+              e.stopPropagation();
+              //  console.log('card tobe unselected', card)
+              handleSelected(card);
+            }} $isselected={isSelected}>해제</Button>)}
 
       </Card>
     )

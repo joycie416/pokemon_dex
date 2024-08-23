@@ -1,8 +1,20 @@
-import React from 'react'
-import { useState } from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SelectedList from './SelectedList';
+
+const StDiv = styled.div`
+  background-color:rgb(236, 236, 236);
+  max-width: 1200px;
+  width: 100%;
+
+  padding: 20px 0;
+
+  position: fixed;
+  top: 0;
+
+  z-index: 2;
+`
 
 const DashBoardContainer = styled.div`
   background-color: skyblue;
@@ -15,27 +27,31 @@ const DashBoardContainer = styled.div`
   overflow: hidden;
 `
 
-const DashBoard = ({ selected, setSelected, mock, setMock }) => {
+const ToStartButton = styled.button`
+  float: left;
+  margin-left: 20px;
+  margin-top: 8px;
+
+  height: 25px;
+
+  border: none;
+  border-radius: 5px;
+  
+  cursor: pointer;
+
+  &:hover {
+    background-color: lightgray;
+  }
+`
+
+const DashBoard = () => {
   const navigate = useNavigate();
 
-
   return (
-    <div style={{
-      backgroundColor:'white',
-      maxWidth:'1200px',
-      width:'100%',
-
-      padding:'20px 0',
-
-      position: 'fixed',
-      top:'0',
-
-      zIndex:'2'
-    }}>
+    <StDiv>
       <DashBoardContainer>
         <header style={{ alignItems: 'center', display: 'flex', height: '40px' }}>
-          <button
-            style={{ float: 'left', marginLeft:'20px' }}
+          <ToStartButton
             onClick={() => {
               const result = confirm('페이지를 벗어나면 선택한 카드 정보를 모두 잃습니다.\n페이지를 벗어나시겠습니까?');
               if (result) {
@@ -46,13 +62,13 @@ const DashBoard = ({ selected, setSelected, mock, setMock }) => {
               }
             }}>
             to Start Page
-          </button>
+          </ToStartButton>
           <h1 style={{ margin: 'auto', transform: 'translateX(-35%)', fontSize: '25px' }}>My Pokemons</h1>
 
         </header>
-        <SelectedList selected={selected} setSelected={setSelected} mock={mock} setMock={setMock} />
+        <SelectedList />
       </DashBoardContainer>
-    </div>
+    </StDiv>
   )
 }
 

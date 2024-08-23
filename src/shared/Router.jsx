@@ -3,18 +3,18 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import StartPage from '../pages/StartPage'
 import Dex from '../pages/Dex'
 import DetailPage from '../pages/DetailPage'
-import PokemonList from '../components/PokemonList'
+import MockContextProvider from '../context/MockContext'
+
 const Router = () => {
   return (
     <BrowserRouter>
-      {/* <Layout> */}
-      <Routes>
-        {/* Route */}
-        <Route path='/' element={<StartPage />} />
-        <Route path='/dex' element={<Dex />}/>
-        <Route path='/detail/:id' element={<DetailPage />} />
-      </Routes>
-      {/* </Layout> */}
+      <MockContextProvider>
+        <Routes>
+          <Route path='/' element={<StartPage />} />
+          <Route path='/dex' element={<Dex />} />
+          <Route path='/detail/:id' element={<DetailPage />} />
+        </Routes>
+      </MockContextProvider>
     </BrowserRouter>
   )
 }

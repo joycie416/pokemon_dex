@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PokemonCard from './PokemonCard';
 import styled from 'styled-components';
+import { MockContext } from '../context/MockContext';
 
 const SelectedContainer = styled.div`
   background-color: transparent;
@@ -10,9 +11,13 @@ const SelectedContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 20px;
+
+  overflow: scroll;
 `
 
-const SelectedList = ({selected, setSelected, mock, setMock}) => {
+const SelectedList = () => {
+const {selected} = useContext(MockContext);
+
   const selectedArray = [...selected];
   if (selectedArray.length < 6) {
     const n = selectedArray.length;
@@ -20,7 +25,7 @@ const SelectedList = ({selected, setSelected, mock, setMock}) => {
       selectedArray.push({});
     }
   }
-  console.log('selected :', selectedArray)
+  // console.log('selected :', selectedArray)
   return (
     <SelectedContainer>
       {selectedArray.map((card, idx) => {
@@ -28,7 +33,7 @@ const SelectedList = ({selected, setSelected, mock, setMock}) => {
         if (!card.id) {
           return <PokemonCard card={card} key={`empty${idx+1}`}/>
         } else {
-        return <PokemonCard card={card} selected={selected} setSelected={setSelected} mock={mock} setMock={setMock} key={card.korean_name}/>
+        return <PokemonCard card={card} key={card.korean_name}/>
         }
       })}
     </SelectedContainer>
