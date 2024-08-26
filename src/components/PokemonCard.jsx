@@ -1,7 +1,78 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled, { css } from 'styled-components'
-import { MockContext } from '../context/MockContext'
+import { handleSelected } from '../redux/Slices/selectedSlice';
+import { editMock } from '../redux/Slices/mockSlice';
+import { useDispatch, useSelector } from 'react-redux';
+// import { MockContext } from '../context/MockContext'
+
+
+const PokemonCard = ({ card }) => {
+  let { img_url, korean_name, id, isSelected } = card;
+  // const { handleSelected } = useContext(MockContext);
+  const selected = useSelector(state => state.selected);
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+
+
+  const onClick = () => {
+    // const result = confirm('페이지를 벗어나면 선택한 카드 정보를 모두 잃습니다.\n페이지를 벗어나시겠습니까?');
+    // if (result) {
+    navigate(`/detail/${id}`);
+    //   return;
+    // } else {
+    //   return;
+    // }
+  }
+
+
+  if (!id) {
+    return <Card $empty={true}><EmptySlot>Empty<br />Slot</EmptySlot></Card>
+  } else {
+    return (
+      <Card onClick={onClick} $empty={false}>
+        <img src={img_url} style={{
+          height: "130px",
+          objectFit: 'contain',
+        }} />
+        <p>{korean_name}</p>
+        <p style={{ fontSize: '12px' }}>No. {`00${id}`.slice(-3)}</p>
+        {!isSelected ?
+          (<Button
+            onClick={(e) => {
+              e.stopPropagation();
+              // console.log('new card', card);
+
+              dispatch(handleSelected(card));
+
+              
+              if (selected.length < 6) {
+                const newCard = { ...card };
+                newCard.isSelected = true;
+                dispatch(editMock(newCard));
+              }
+            }} $isselected={isSelected}>선택</Button>)
+          : (<Button
+            onClick={(e) => {
+              e.stopPropagation();
+              // console.log('card unselected', card)
+
+              dispatch(handleSelected(card));
+              
+              const newCard = { ...card };
+              newCard.isSelected = false;
+              dispatch(editMock(newCard));
+            }} $isselected={isSelected}>해제</Button>)}
+
+      </Card>
+    )
+  }
+}
+
+export default PokemonCard
 
 const Card = styled.div`
   background-color: white;
@@ -63,58 +134,3 @@ const EmptySlot = styled.p`
   font-size: 20px;
   line-height: 150%;
 `
-
-
-
-
-const PokemonCard = ({ card }) => {
-  let { img_url, korean_name, id, isSelected } = card;
-  const { handleSelected } = useContext(MockContext);
-
-  const navigate = useNavigate();
-
-
-
-  const onClick = () => {
-    const result = confirm('페이지를 벗어나면 선택한 카드 정보를 모두 잃습니다.\n페이지를 벗어나시겠습니까?');
-    if (result) {
-      navigate(`/detail/${id}`);
-      return;
-    } else {
-      return;
-    }
-
-  }
-
-
-  if (!id) {
-    return <Card $empty={true}><EmptySlot>Empty<br />Slot</EmptySlot></Card>
-  } else {
-    return (
-      <Card onClick={onClick} $empty={false}>
-        <img src={img_url} style={{
-          height: "130px",
-          objectFit: 'contain',
-        }} />
-        <p>{korean_name}</p>
-        <p style={{ fontSize: '12px' }}>No. {`00${id}`.slice(-3)}</p>
-        {!isSelected ?
-          (<Button
-            onClick={(e) => {
-              e.stopPropagation();
-              //  console.log('card tobe selected', card)
-              handleSelected(card)
-            }} $isselected={isSelected}>선택</Button>)
-          : (<Button
-            onClick={(e) => {
-              e.stopPropagation();
-              //  console.log('card tobe unselected', card)
-              handleSelected(card);
-            }} $isselected={isSelected}>해제</Button>)}
-
-      </Card>
-    )
-  }
-}
-
-export default PokemonCard

@@ -1,26 +1,13 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import PokemonCard from './PokemonCard'
-import { MockContext } from '../context/MockContext'
-
-const CardContainer = styled.div`
-  background-color: rgb(236, 236, 236);
-  padding: 20px;
-
-  width: 100%;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 20px;
-
-  margin-top: 370px;
-  
-  overflow: scroll;
-`
+import { useSelector } from 'react-redux';
+// import { MockContext } from '../context/MockContext'
 
 const PokemonList = () => {
-
-  const { mock } = useContext(MockContext);
+  // const { mock } = useContext(MockContext);
+  const mock = useSelector(state => state.mock);
+  // console.log('mock :', mock);
 
 
   // console.log('pokemonlist');
@@ -38,3 +25,18 @@ const PokemonList = () => {
 }
 
 export default PokemonList
+
+const CardContainer = styled.div`
+  background-color: rgb(236, 236, 236);
+  padding: 20px;
+
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+
+  margin-top: 370px;
+  
+  overflow: scroll;
+`
