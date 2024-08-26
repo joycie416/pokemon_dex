@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import { handleSelected } from '../redux/Slices/selectedSlice';
 import { editMock } from '../redux/Slices/mockSlice';
@@ -21,7 +21,7 @@ const PokemonCard = ({ card }) => {
   const onClick = () => {
     // const result = confirm('페이지를 벗어나면 선택한 카드 정보를 모두 잃습니다.\n페이지를 벗어나시겠습니까?');
     // if (result) {
-    navigate(`/detail/${id}`);
+    navigate(`/detail?id=${id}`);
     //   return;
     // } else {
     //   return;
@@ -66,7 +66,6 @@ const PokemonCard = ({ card }) => {
               newCard.isSelected = false;
               dispatch(editMock(newCard));
             }} $isselected={isSelected}>해제</Button>)}
-
       </Card>
     )
   }

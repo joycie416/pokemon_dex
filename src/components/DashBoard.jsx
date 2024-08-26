@@ -12,13 +12,13 @@ const DashBoard = () => {
         <header style={{ alignItems: 'center', display: 'flex', height: '40px' }}>
           <ToStartButton
             onClick={() => {
-              const result = confirm('페이지를 벗어나면 선택한 카드 정보를 모두 잃습니다.\n페이지를 벗어나시겠습니까?');
-              if (result) {
+              // const result = confirm('페이지를 벗어나면 선택한 카드 정보를 모두 잃습니다.\n페이지를 벗어나시겠습니까?');
+              // if (result) {
                 navigate(`/`);
                 return
-              } else {
-                return;
-              }
+              // } else {
+              //   return;
+              // }
             }}>
             to Start Page
           </ToStartButton>

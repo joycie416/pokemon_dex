@@ -5,9 +5,6 @@ import Dex from '../pages/Dex'
 import DetailPage from '../pages/DetailPage'
 // import MockContextProvider from '../context/MockContext'
 
-// import store from '../redux/config/configStore'
-// import { Provider } from 'react-redux'
-
 const Router = () => {
   return (
     <BrowserRouter>
@@ -15,7 +12,8 @@ const Router = () => {
       <Routes>
         <Route path='/' element={<StartPage />} />
         <Route path='/dex' element={<Dex />} />
-        <Route path='/detail/:id' element={<DetailPage />} />
+        {/* <Route path='/detail/:id' element={<DetailPage />} /> */}
+        <Route path='/detail' element={<DetailPage />} />
       </Routes>
       {/* </MockContextProvider> */}
     </BrowserRouter>

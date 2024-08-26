@@ -4,6 +4,23 @@ import styled from 'styled-components'
 import logo from '../assets/pokemon-logo.png'
 
 
+const StartPage = () => {
+  const navigate = useNavigate();
+
+  return (
+    <StartPageConatiner >
+      <LogoImg />
+      <StartButton onClick={() => {
+        navigate('/dex');
+      }}>
+        START!
+      </StartButton>
+    </StartPageConatiner>
+  )
+}
+
+export default StartPage
+
 const StartPageConatiner = styled.div`
   max-width:500px;
   width:100%;
@@ -43,20 +60,3 @@ const StartButton = styled.button`
     background-color: #d30000;
   };
 `
-
-const StartPage = () => {
-  const navigate = useNavigate();
-
-  return (
-    <StartPageConatiner >
-      <LogoImg />
-      <StartButton onClick={() => {
-        navigate('/dex');
-      }}>
-        START!
-      </StartButton>
-    </StartPageConatiner>
-  )
-}
-
-export default StartPage

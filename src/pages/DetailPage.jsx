@@ -1,8 +1,36 @@
 import React from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import mock from '../mock';
 import styled from 'styled-components';
 
+
+const DetailPage = () => {
+  const navigate = useNavigate();
+  // const params = useParams();
+  const [searchParams, _] = useSearchParams();
+
+  // const targetCard = mock.find(card => card.id === +params.id);
+  const targetCard = mock.find(card => card.id === +searchParams.get('id'));
+  const { img_url, korean_name, description, types } = targetCard;
+
+  return (
+    <>
+      <BackButton onClick={() => {
+        navigate(`/dex`);
+        return;
+      }}>뒤로가기</BackButton>
+      <Detail>
+        <img src={img_url} style={{ width: '300px', height: '300px', objectFit: 'contain' }} />
+        <p style={{ fontSize: '24px', fontWeight: '600' }}>{korean_name}</p>
+        <hr style={{ width: '50%', height: '1px' }} />
+        <p>타입 : {types.join(', ')}</p>
+        <p>{description}</p>
+      </Detail>
+    </>
+  )
+}
+
+export default DetailPage
 
 const Detail = styled.div`
   background-color: white;
@@ -45,29 +73,3 @@ const BackButton = styled.button`
     background-color: lightgray;
   }
 `
-
-const DetailPage = () => {
-  const params = useParams();
-  const navigate = useNavigate();
-
-  const targetCard = mock.find(card => card.id === +params.id);
-  const { img_url, korean_name, description, types } = targetCard;
-
-  return (
-    <>
-      <BackButton onClick={() => {
-        navigate(`/dex`);
-        return;
-      }}>뒤로가기</BackButton>
-      <Detail>
-        <img src={img_url} style={{ width: '300px', height: '300px', objectFit: 'contain' }} />
-        <p style={{ fontSize: '24px', fontWeight: '600' }}>{korean_name}</p>
-        <hr style={{ width: '50%', height: '1px' }} />
-        <p>타입 : {types.join(', ')}</p>
-        <p>{description}</p>
-      </Detail>
-    </>
-  )
-}
-
-export default DetailPage
