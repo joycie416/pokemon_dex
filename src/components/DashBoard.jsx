@@ -2,12 +2,22 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SelectedList from './SelectedList';
+import { Toaster, toast } from 'sonner'
+import warningIcon from '../assets/warning-icon.png'
 
 const DashBoard = () => {
   const navigate = useNavigate();
 
   return (
     <StDiv>
+      <Toaster position='top-center' style={{
+        lineHeight:'3',
+        textIndent: '25px'
+      }} richColors
+      icons={{
+        error: <WarningIcon/>
+      }}
+      />
       <DashBoardContainer>
         <header style={{ alignItems: 'center', display: 'flex', height: '40px' }}>
           <ToStartButton
@@ -72,4 +82,13 @@ const ToStartButton = styled.button`
   &:hover {
     background-color: lightgray;
   }
+`
+
+const WarningIcon = styled.img.attrs({
+  src: warningIcon,
+})`
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  margin: 0 10px;
 `

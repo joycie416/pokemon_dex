@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { Toaster, toast } from 'sonner'
 // import { editMock } from "./mockSlice";
 
 const initialState = [];
@@ -15,7 +15,8 @@ const selectedSlice = createSlice({
 
       if (!isSelected) {
         if (state.length === 6) {
-          alert("최대 6장까지 선택할 수 있습니다.");
+          // alert("최대 6장까지 선택할 수 있습니다.");
+          toast.error('최대 6장까지 선택할 수 있습니다.');
           return;
         }
 
