@@ -1,5 +1,7 @@
 # Pokemon Dex
 
+URL: https://pokemon-dex-opal.vercel.app/
+
 151개의 포켓몬 중 최대 6개를 선택할 수 있습니다. 카드를 클릭하면 해당 포켓몬에 대한 세부 정보를 확인할 수 있습니다.
 <img src='./images/dex.png'>
 
@@ -15,7 +17,7 @@
 
 ### Branch: prop-drilling
 
-최상위 컴포넌트인 `Dex.jsx`에 mock과 selected에 대한 state를 저장함. `PokemonCard.jsx`까지 `mock`과 `selected`를 전달해줌. `selected`에 저장될 때 `mock`에서 선택된 카드의 `isSelected`도 변경해주기 위함.
+최상위 컴포넌트인 `Dex.jsx`에 `mock`과 `selected`에 대한 state를 저장함. `PokemonCard.jsx`까지 `mock`과 `selected`를 전달해줌. `selected`에 저장될 때 `mock`에서 선택된 카드의 `isSelected`도 변경해주기 위함.
 
 카드가 선택되면 카드 버튼의 색과 글자가 바뀌도록 조건부 스타일링 적용.
 
