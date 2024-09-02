@@ -1,6 +1,6 @@
 # Pokemon Dex
 
-URL: https://pokemon-dex-opal.vercel.app/
+URL: [https://pokemon-dex-opal.vercel.app/](https://pokemon-dex-qwer.vercel.app/)
 
 151개의 포켓몬 중 최대 6개를 선택할 수 있습니다. 카드를 클릭하면 해당 포켓몬에 대한 세부 정보를 확인할 수 있습니다.
 <img src='./images/dex.png'>
