@@ -3,9 +3,43 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import logo from '../assets/pokemon-logo.png'
 
+import axios from "axios";
 
 const StartPage = () => {
   const navigate = useNavigate();
+
+
+
+  axios.defaults.withCredentials = true;
+  
+  // const Local = "http://localhost"
+  const BASE_URL = "http://kopis.or.kr/openApi/restful/pblprfr";
+  // const API_KEY = import.meta.env.VITE_KOPIS_KEY;
+  
+  const url =
+    BASE_URL +
+    `?service=7e6379e8f4ad4bc5a8d668d4dfea6e78&stdate=20240911&eddate=20240911&rows=10&cpage=1`;
+    // 7e6379e8f4ad4bc5a8d668d4dfea6e78
+  
+  const getPlayDay = async () => {
+    // const {data} = await axios({
+    //   methos:'get'
+    //   url:`?service=${API_KEY}&stdate=20240911&eddate=20240911&rows=10&cpage=1`,
+    //   withCredentials: true
+    // })
+  
+    // console.log(  BASE_URL +
+    //   `?service=${API_KEY}&stdate=20240911&eddate=20240911&rows=10&cpage=1`);
+    
+    const {data} = await fetch(url)
+  
+    console.log(data);
+    return (data)
+  }
+
+  getPlayDay();
+
+
 
   return (
     <StartPageConatiner >
